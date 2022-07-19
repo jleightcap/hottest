@@ -42,36 +42,36 @@ tt ∧² ff = ff
 tt ∧² tt = tt
 
 -- 1.2
-¬ : 𝟚 → 𝟚
-¬ tt = ff
-¬ ff = tt
+¬ℕ : 𝟚 → 𝟚
+¬ℕ tt = ff
+¬ℕ ff = tt
 
 _⊕_ : 𝟚 → 𝟚 → 𝟚
-tt ⊕ b = ¬ b
+tt ⊕ b = ¬ℕ b
 ff ⊕ b = b
 
 -- 1.3
-_+_ : ℕ → ℕ → ℕ
-zero + b = b
-succ a + b = succ (a + b)
-infixr 20  _+_
+_+ℕ_ : ℕ → ℕ → ℕ
+zero +ℕ b = b
+succ a +ℕ b = succ (a +ℕ b)
+infixr 20  _+ℕ_
 
 private
-    +-example : 3 + 4 ≡ 7
-    +-example = refl
+    +ℕ-example : 3 +ℕ 4 ≡ 7
+    +ℕ-example = refl
 
-_×_ : ℕ → ℕ → ℕ
-zero × b = zero
-succ a × b = b + (a × b)
-infixr 30 _×_
+_×ℕ_ : ℕ → ℕ → ℕ
+zero ×ℕ b = zero
+succ a ×ℕ b = b +ℕ (a ×ℕ b)
+infixr 30 _×ℕ_
 
 private
-    ×-example : 3 × 4 ≡ 12
-    ×-example = refl
+    ×ℕ-example : 3 ×ℕ 4 ≡ 12
+    ×ℕ-example = refl
 
 _^_ : ℕ → ℕ → ℕ
 a ^ zero = succ zero
-a ^ succ b = a × (a ^ b)
+a ^ succ b = a ×ℕ (a ^ b)
 infixr 40 _^_
 
 private
@@ -80,7 +80,7 @@ private
 
 _! : ℕ → ℕ
 zero ! = succ zero
-succ a ! = (succ a) × (a !)
+succ a ! = (succ a) ×ℕ (a !)
 infixr 50 _!
 
 private
@@ -112,7 +112,7 @@ map f [] = []
 map f (x ∷ xs) = f x ∷ map f xs
 
 private
-    map-example : map (_+ 3) (1 ∷ 2 ∷ 3 ∷ []) ≡ 4 ∷ 5 ∷ 6 ∷ []
+    map-example : map (_+ℕ 3) (1 ∷ 2 ∷ 3 ∷ []) ≡ 4 ∷ 5 ∷ 6 ∷ []
     map-example = refl
 
 -- 1.6
@@ -155,9 +155,9 @@ infix 0 _≣_
 ≣-to-≡ ff b p = refl
 
 -- 3.1
-¬-invo : ( b : 𝟚 ) → ¬ (¬ b) ≡ b
-¬-invo tt = refl
-¬-invo ff = refl
+¬ℕ-invo : ( b : 𝟚 ) → ¬ℕ (¬ℕ b) ≡ b
+¬ℕ-invo tt = refl
+¬ℕ-invo ff = refl
 
 _∨_ : 𝟚 → 𝟚 → 𝟚
 ff ∨ b = b
@@ -205,12 +205,12 @@ min-comm (succ n) (succ m) = ap succ induct
     induct = min-comm n m
 
 -- 3.5
-+-identr : ( n : ℕ ) → n ≡ n + 0
-+-identr zero = refl
-+-identr (succ n) = ap succ induct
++ℕ-identr : ( n : ℕ ) → n ≡ n +ℕ 0
++ℕ-identr zero = refl
++ℕ-identr (succ n) = ap succ induct
   where
-    induct : n ≡ n + 0
-    induct = +-identr n
+    induct : n ≡ n +ℕ 0
+    induct = +ℕ-identr n
 
 -- 3.6
 id : { X : Type } → X → X
